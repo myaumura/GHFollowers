@@ -12,6 +12,7 @@
 		97093D1F29E863100039BA3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97093D1E29E863100039BA3A /* Assets.xcassets */; };
 		97093D2229E863100039BA3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97093D2029E863100039BA3A /* LaunchScreen.storyboard */; };
 		97184B602ABDED61006FA9CA /* UIViewController+Ext .swift in Sources */ = {isa = PBXBuildFile; fileRef = 97184B5F2ABDED61006FA9CA /* UIViewController+Ext .swift */; };
+		971F0C7C2AC83D6200AE0E1B /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971F0C7B2AC83D6200AE0E1B /* GFError.swift */; };
 		975E788729EEE74600AE81CB /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975E788629EEE74600AE81CB /* GFButton.swift */; };
 		975E788929EF4D4C00AE81CB /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975E788829EF4D4C00AE81CB /* GFTextField.swift */; };
 		9799855C29F6B78A005CCB96 /* FollowerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9799855B29F6B78A005CCB96 /* FollowerListVC.swift */; };
@@ -22,6 +23,7 @@
 		97D9D3D429EC70D0000AA100 /* FavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D9D3D329EC70D0000AA100 /* FavoritesListVC.swift */; };
 		97DEC91F2AC0B35300C00B5A /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DEC91E2AC0B35300C00B5A /* Follower.swift */; };
 		97DEC9212AC0B45500C00B5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DEC9202AC0B45500C00B5A /* User.swift */; };
+		97EF07AE2AC4B47500593197 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EF07AD2AC4B47500593197 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,7 @@
 		97093D2129E863100039BA3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97093D2329E863100039BA3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97184B5F2ABDED61006FA9CA /* UIViewController+Ext .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext .swift"; sourceTree = "<group>"; };
+		971F0C7B2AC83D6200AE0E1B /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
 		975E788629EEE74600AE81CB /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 		975E788829EF4D4C00AE81CB /* GFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
 		9799855B29F6B78A005CCB96 /* FollowerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListVC.swift; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 		97D9D3D329EC70D0000AA100 /* FavoritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListVC.swift; sourceTree = "<group>"; };
 		97DEC91E2AC0B35300C00B5A /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		97DEC9202AC0B45500C00B5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		97EF07AD2AC4B47500593197 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 		97093D1429E8630F0039BA3A /* GHFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				971F0C7A2AC83D4300AE0E1B /* Utilities */,
+				97EF07AC2AC4B45C00593197 /* Managers */,
 				97DEC91D2AC0B34B00C00B5A /* Model  */,
 				97184B642ABE3326006FA9CA /* Support */,
 				97184B632ABE330E006FA9CA /* Extensions */,
@@ -125,6 +131,14 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		971F0C7A2AC83D4300AE0E1B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				971F0C7B2AC83D6200AE0E1B /* GFError.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		97DEC91D2AC0B34B00C00B5A /* Model  */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +146,14 @@
 				97DEC9202AC0B45500C00B5A /* User.swift */,
 			);
 			path = "Model ";
+			sourceTree = "<group>";
+		};
+		97EF07AC2AC4B45C00593197 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				97EF07AD2AC4B47500593197 /* NetworkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,7 +184,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					97093D1129E8630F0039BA3A = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -211,9 +233,11 @@
 				97DEC91F2AC0B35300C00B5A /* Follower.swift in Sources */,
 				975E788729EEE74600AE81CB /* GFButton.swift in Sources */,
 				97D9D3D229EC6DDC000AA100 /* SearchVC.swift in Sources */,
+				971F0C7C2AC83D6200AE0E1B /* GFError.swift in Sources */,
 				9799856229FB0053005CCB96 /* GFAlertVC.swift in Sources */,
 				9799856029F9C285005CCB96 /* GFBodyLabel.swift in Sources */,
 				9799855E29F97CDD005CCB96 /* GFTitleLabel.swift in Sources */,
+				97EF07AE2AC4B47500593197 /* NetworkManager.swift in Sources */,
 				9799855C29F6B78A005CCB96 /* FollowerListVC.swift in Sources */,
 				97093D1629E8630F0039BA3A /* AppDelegate.swift in Sources */,
 				97093D1829E8630F0039BA3A /* SceneDelegate.swift in Sources */,
@@ -270,6 +294,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -330,6 +355,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
