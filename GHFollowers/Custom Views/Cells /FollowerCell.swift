@@ -8,7 +8,6 @@
 import UIKit
 
 class FollowerCell: UICollectionViewCell {
-    
     static let reuseID = "FollowerCell"
     
     let avatarImageView = GFAvatarImageView(frame: .zero)
@@ -35,7 +34,6 @@ class FollowerCell: UICollectionViewCell {
         let padding:CGFloat = 8
         
         NSLayoutConstraint.activate([
-        
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             avatarImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
@@ -45,10 +43,6 @@ class FollowerCell: UICollectionViewCell {
             usernameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
             usernameLabel.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
             usernameLabel.heightAnchor.constraint(equalToConstant: 20)
-            
-        
         ])
-        
-        
     }
 }

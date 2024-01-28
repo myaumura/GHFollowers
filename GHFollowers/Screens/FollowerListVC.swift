@@ -9,7 +9,6 @@ import UIKit
 
 
 class FollowerListVC: UIViewController {
-    
     enum Section {
         case main
     }
@@ -18,7 +17,6 @@ class FollowerListVC: UIViewController {
     var followers: [Follower] = []
     var page = 1
     var hasMoreFollowers = true
-    
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     
@@ -67,7 +65,6 @@ class FollowerListVC: UIViewController {
         }
     }
     
-    
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { collectionView, indexPath, follower in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
@@ -89,7 +86,6 @@ class FollowerListVC: UIViewController {
 extension FollowerListVC: UICollectionViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
@@ -99,6 +95,5 @@ extension FollowerListVC: UICollectionViewDelegate {
             page += 1
             getFollowers(username: username, page: page)
         }
-        
     }
 }

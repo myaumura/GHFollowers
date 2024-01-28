@@ -8,7 +8,6 @@
 import UIKit
 
 class NetworkManager {
-    
     static let shared = NetworkManager()
     private let baseURL = "https:api.github.com/users/"
     let cache = NSCache<NSString, UIImage>()
@@ -32,25 +31,25 @@ class NetworkManager {
             
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completed(.failure(.invalidResponse))
+                completed(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
-                        completed(.failure(.invalidData))
+                completed(.failure(.invalidData))
                 return
             }
-                          
+            
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let followers = try decoder.decode([Follower].self, from: data)
-                            completed(.success(followers))
+                completed(.success(followers))
             } catch {
                 completed(.failure(.invalidData))
             }
             
         }
-        task.resume()   
+        task.resume()
     }
 }

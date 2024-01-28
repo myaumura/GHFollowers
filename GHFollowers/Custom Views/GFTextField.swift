@@ -9,7 +9,6 @@ import UIKit
 
 class GFTextField: UITextField {
 
-   
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -25,7 +24,7 @@ class GFTextField: UITextField {
         layer.cornerRadius = 10
         layer.borderWidth = 2
         layer.borderColor = UIColor.systemGray4.cgColor
-    
+
         textColor = .label
         tintColor = .label
         textAlignment = .center
@@ -34,10 +33,8 @@ class GFTextField: UITextField {
         
         backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
+        autocapitalizationType = .none
         returnKeyType = .go
-        placeholder = "Enter a username "
+        placeholder = "Enter a username"
     }
-    
-    
-    
 }

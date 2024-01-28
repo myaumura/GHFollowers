@@ -8,8 +8,8 @@
 import UIKit
 
 class GFAlertVC: UIViewController {
-
-    let containerView = UIView() 
+    
+    let containerView = UIView()
     let titleLabel = GFTitleLabel(textAlignment: .center, fontSize: 20)
     let messageLabel = GFBodyLabel(textAlignment: .center)
     let actionButton = GFButton(backgroundColor: .systemPink, title: "Ok")
@@ -39,8 +39,6 @@ class GFAlertVC: UIViewController {
         configureActionButton()
         configureMessagfeLabel()
     }
-    
-    
     
     func configureContainerView(){
         view.addSubview(containerView)
@@ -94,9 +92,8 @@ class GFAlertVC: UIViewController {
             messageLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
             messageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
             messageLabel.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -12)
-        
+            
         ])
-        
     }
     
     @objc func dismissVC() {
