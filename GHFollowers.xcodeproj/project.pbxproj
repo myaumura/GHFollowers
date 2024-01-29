@@ -122,9 +122,9 @@
 		97184B612ABE32BC006FA9CA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				97D9D3D129EC6DDC000AA100 /* SearchVC.swift */,
 				97D9D3D329EC70D0000AA100 /* FavoritesListVC.swift */,
 				9799855B29F6B78A005CCB96 /* FollowerListVC.swift */,
-				97D9D3D129EC6DDC000AA100 /* SearchVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

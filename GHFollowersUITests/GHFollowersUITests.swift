@@ -6,45 +6,64 @@
 //
 
 import XCTest
+@testable import GHFollowers
 
 final class GHFollowersUITests: XCTestCase {
+    var app: XCUIApplication!
 
     override func setUpWithError() throws {
-      
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDownWithError() throws {
+        app = nil
     }
 
+    func testImageExists() {
+        let image = app.images["logo"]
+        XCTAssertTrue(image.exists)
+    }
+    
     func testExample() throws {
-        let app = XCUIApplication()
-        app.launch()
+        let image = app.images["logo"]
+        XCTAssertTrue(image.exists)
         
         let textField = app.textFields["Enter a username"]
         XCTAssertTrue(textField.exists)
         let button = app.buttons["Get Followers"]
         XCTAssertTrue(button.exists)
         
-        guard textField.exists && button.exists else { return }
+        guard textField.exists && button.exists else { return XCTFail()}
         
         textField.tap()
         textField.typeText("myaumura")
-        app.keyboards.buttons["go"].tap()
+        image.tap()
+        button.tap()
         
         let username = app.staticTexts["myaumura"]
         XCTAssertTrue(username.exists)
-     
+    }
+    
+    func testTabBarButtons() {
+        let searchButton = app.buttons["Search"]
+        let favoritesButton = app.buttons["Favorites"]
+        
+        XCTAssertTrue(searchButton.exists)
+        XCTAssertTrue(favoritesButton.exists)
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+    func testEmptyTextfield() {
+        let getFollowersButton = app.buttons["Get Followers"]
+        XCTAssertTrue(getFollowersButton.exists)
+        
+        getFollowersButton.tap()
+        
+        let staticText = app.staticTexts["Empty username"]
+        XCTAssertTrue(staticText.exists)
+        
+        let okButton = app.buttons["Ok"]
+        XCTAssertTrue(okButton.exists)
+        okButton.tap()
     }
 }
