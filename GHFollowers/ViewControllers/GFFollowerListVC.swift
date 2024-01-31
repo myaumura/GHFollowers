@@ -7,23 +7,34 @@
 
 import UIKit
 
-
-class FollowerListVC: UIViewController {
+final class FollowerListVC: UIViewController {
     enum Section {
         case main
     }
     
     var username: String!
     var followers: [Follower] = []
+    var filteredFollowers: [Follower] = []
     var page = 1
     var hasMoreFollowers = true
-    var collectionView: UICollectionView!
+    var isSearching = false
+    
+    var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
+        
+        return collectionView
+    }()
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
         configureViewController()
+        configureSearchController()
+        configureCollectionView()
         getFollowers(username: username, page: page)
         configureDataSource()
     }
@@ -39,10 +50,28 @@ class FollowerListVC: UIViewController {
     }
     
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .systemBackground
-        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
+        collectionView.delegate = self
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        collectionView.collectionViewLayout = GFColumnFlowLayout(in: view)
+    }
+    
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a username"
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.autocapitalizationType = .none
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func getFollowers(username: String, page: Int) {
@@ -60,10 +89,10 @@ class FollowerListVC: UIViewController {
                     let message = "This user doesn't have any followers. Go follow them 😀."
                     DispatchQueue.main.async {
                         self.showEmptyStateView(with: message, in: self.view)
-                        return 
+                        return
                     }
                 }
-                self.updateData()
+                self.updateData(with: self.followers)
                 
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Bad Stuff Happens",
@@ -81,7 +110,7 @@ class FollowerListVC: UIViewController {
         })
     }
     
-    func updateData() {
+    func updateData(with followers: [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.main])
         snapshot.appendItems(followers)
@@ -103,5 +132,29 @@ extension FollowerListVC: UICollectionViewDelegate {
             page += 1
             getFollowers(username: username, page: page)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let activeArray = isSearching ? filteredFollowers : followers
+        let follower = activeArray[indexPath.item]
+        
+        let vc = UserInfoVC()
+        vc.username = follower.login
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
+    }
+}
+
+extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filtered = searchController.searchBar.text, !filtered.isEmpty else { return }
+        filteredFollowers = followers.filter({ $0.login.lowercased().contains(filtered.lowercased()) })
+        updateData(with: filteredFollowers)
+        isSearching = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateData(with: followers)
+        isSearching = false
     }
 }
