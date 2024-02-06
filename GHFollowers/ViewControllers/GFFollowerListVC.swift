@@ -52,7 +52,8 @@ final class FollowerListVC: UIViewController {
     func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.delegate = self
-
+        collectionView.accessibilityIdentifier = "Followers Collection View"
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

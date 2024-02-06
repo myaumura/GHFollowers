@@ -10,16 +10,16 @@ import XCTest
 
 final class GHFollowersUITests: XCTestCase {
     var app: XCUIApplication!
-
+    
     override func setUpWithError() throws {
         app = XCUIApplication()
         app.launch()
     }
-
+    
     override func tearDownWithError() throws {
         app = nil
     }
-
+    
     func testImageExists() {
         let image = app.images["logo"]
         XCTAssertTrue(image.exists)
@@ -52,7 +52,38 @@ final class GHFollowersUITests: XCTestCase {
         XCTAssertTrue(searchButton.exists)
         XCTAssertTrue(favoritesButton.exists)
     }
-
+    
+    func testFavoritesBarButton() {
+        let favoritesButton = app.buttons["Favorites"]
+        XCTAssertTrue(favoritesButton.exists)
+        
+        favoritesButton.tap()
+        let favoriteText = app.staticTexts["Favorites"]
+        XCTAssertTrue(favoriteText.exists)
+    }
+    
+    func testFollowersCollectionView() {
+        let image = app.images["logo"]
+        XCTAssertTrue(image.exists)
+        
+        let textField = app.textFields["Enter a username"]
+        XCTAssertTrue(textField.exists)
+        let button = app.buttons["Get Followers"]
+        XCTAssertTrue(button.exists)
+        
+        guard textField.exists && button.exists else { return XCTFail()}
+        
+        textField.tap()
+        textField.typeText("myaumura")
+        image.tap()
+        button.tap()
+        
+        let followerCollectionView = app.collectionViews["Followers Collection View"]
+        
+        let cell = followerCollectionView.cells.element(boundBy: 0)
+        XCTAssertTrue(cell.exists)
+    }
+    
     func testEmptyTextfield() {
         let getFollowersButton = app.buttons["Get Followers"]
         XCTAssertTrue(getFollowersButton.exists)
