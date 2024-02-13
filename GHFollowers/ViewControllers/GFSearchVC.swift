@@ -34,7 +34,11 @@ final class SearchVC: UIViewController {
     
     @objc func pushFollowersListVC() {
         guard isUsernameEntered  else {
-            presentGFAlertOnMainThread(title: "Empty username", message: "Please enter the username. We need to know who to look for 😀.", buttonTitle: "Ok")
+            presentGFAlertOnMainThread(
+                title: "Empty username",
+                message: "Please enter the username. We need to know who to look for 😀.",
+                buttonTitle: "Ok"
+            )
             return
         }
         let followerListVC = FollowerListVC()
@@ -47,7 +51,7 @@ final class SearchVC: UIViewController {
         view.addSubview(logoImageView)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = UIImage(named: "gh-logo")!
-        logoImageView.accessibilityIdentifier = "logo"
+        logoImageView.accessibilityIdentifier = "logoImage"
         
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
@@ -60,6 +64,7 @@ final class SearchVC: UIViewController {
     func configureTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.delegate = self
+        usernameTextField.accessibilityIdentifier = "Username Text Field"
         
         NSLayoutConstraint.activate([
             usernameTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 48),
@@ -72,6 +77,7 @@ final class SearchVC: UIViewController {
     func configureCallToActionButton(){
         view.addSubview(callToActionButton)
         callToActionButton.addTarget(self, action: #selector(pushFollowersListVC), for: .touchUpInside)
+        callToActionButton.accessibilityIdentifier = "Action Button"
         
         NSLayoutConstraint.activate([
             callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),

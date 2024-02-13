@@ -27,74 +27,90 @@ final class GHFollowersUITests: XCTestCase {
     
     func testExample() throws {
         let image = app.images["logo"]
-        XCTAssertTrue(image.exists)
-        
-        let textField = app.textFields["Enter a username"]
-        XCTAssertTrue(textField.exists)
-        let button = app.buttons["Get Followers"]
-        XCTAssertTrue(button.exists)
-        
-        guard textField.exists && button.exists else { return XCTFail()}
-        
-        textField.tap()
-        textField.typeText("myaumura")
-        image.tap()
-        button.tap()
-        
+        let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
+        let button = app.buttons.matching(.button, identifier: "Action Button")
         let username = app.staticTexts["myaumura"]
+        
+        guard textField.element.exists && button.element.exists else { return XCTFail()}
+        
+        textField.element.tap()
+        textField.element.typeText("myaumura")
+        image.tap()
+        button.element.tap()
+        
+        XCTAssertTrue(image.exists)
+        XCTAssertTrue(textField.element.exists)
+        XCTAssertTrue(button.element.exists)
         XCTAssertTrue(username.exists)
     }
     
     func testTabBarButtons() {
-        let searchButton = app.buttons["Search"]
-        let favoritesButton = app.buttons["Favorites"]
+        let searchButton = app.buttons.matching(.button, identifier: "Search")
+        let favoritesButton = app.buttons.matching(.button, identifier: "Favorites")
         
-        XCTAssertTrue(searchButton.exists)
-        XCTAssertTrue(favoritesButton.exists)
+        XCTAssertTrue(searchButton.element.exists)
+        XCTAssertTrue(favoritesButton.element.exists)
     }
     
     func testFavoritesBarButton() {
-        let favoritesButton = app.buttons["Favorites"]
-        XCTAssertTrue(favoritesButton.exists)
+        let favoritesButton = app.buttons.matching(.button, identifier: "Favorites")
+        let favoriteText = app.staticTexts.matching(.staticText, identifier: "Favorites")
         
-        favoritesButton.tap()
-        let favoriteText = app.staticTexts["Favorites"]
-        XCTAssertTrue(favoriteText.exists)
+        favoritesButton.element.tap()
+        XCTAssertTrue(favoritesButton.element.exists)
+        XCTAssertTrue(favoriteText.element.exists)
     }
     
     func testFollowersCollectionView() {
-        let image = app.images["logo"]
-        XCTAssertTrue(image.exists)
-        
-        let textField = app.textFields["Enter a username"]
-        XCTAssertTrue(textField.exists)
-        let button = app.buttons["Get Followers"]
-        XCTAssertTrue(button.exists)
-        
-        guard textField.exists && button.exists else { return XCTFail()}
-        
-        textField.tap()
-        textField.typeText("myaumura")
-        image.tap()
-        button.tap()
-        
+        let image = app.images["logoImage"]
+        let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
+        let button = app.buttons.matching(.button, identifier: "Action Button")
         let followerCollectionView = app.collectionViews["Followers Collection View"]
-        
         let cell = followerCollectionView.cells.element(boundBy: 0)
+       
+        guard textField.element.exists && button.element.exists else { return XCTFail()}
+        textField.element.tap()
+        textField.element.typeText("myaumura")
+        image.tap()
+        button.element.tap()
+        
         XCTAssertTrue(cell.exists)
     }
     
+    func testEmptyFollowersCollectionView() {
+        let image = app.images["logoImage"]
+        let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
+        let button = app.buttons.matching(.button, identifier: "Action Button")
+        let followerCollectionView = app.collectionViews["Followers Collection View"]
+        let cell = followerCollectionView.cells.element(boundBy: 0)
+       
+        guard textField.element.exists && button.element.exists else { return XCTFail()}
+        textField.element.tap()
+        textField.element.typeText("antigluten")
+        image.tap()
+        button.element.tap()
+            
+        XCTAssertFalse(cell.exists)
+    }
+    
+    func testGetFullCollectionView() {
+        
+    }
+    
     func testEmptyTextfield() {
-        let getFollowersButton = app.buttons["Get Followers"]
-        XCTAssertTrue(getFollowersButton.exists)
-        
-        getFollowersButton.tap()
-        
+        let getFollowersButton = app.buttons.matching(.button, identifier: "Action Button")
         let staticText = app.staticTexts["Empty username"]
-        XCTAssertTrue(staticText.exists)
-        
         let okButton = app.buttons["Ok"]
-        XCTAssertTrue(okButton.exists)
+        
+        getFollowersButton.element.tap()
         okButton.tap()
+        
+        XCTAssertTrue(getFollowersButton.element.exists)
+        XCTAssertTrue(staticText.exists)
+        XCTAssertTrue(okButton.exists)
+    }
+    
+    func testUI() {
+        
     }
 }
