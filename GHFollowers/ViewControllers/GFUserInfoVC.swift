@@ -9,7 +9,9 @@ import UIKit
 
 class UserInfoVC: UIViewController {
 
-    var username: String!
+    private let headerView = UIView()
+    
+    private var username: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,24 @@ class UserInfoVC: UIViewController {
                 self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+        
+        setupUI()
     }
 
+    private func setupUI() {
+        view.addSubview(headerView)
+        
+        headerView.backgroundColor = .systemMint
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            headerView.heightAnchor.constraint(equalToConstant: 180),
+            
+        ])
+    }
+    
     @objc func dismissVC() {
         dismiss(animated: true)
     }

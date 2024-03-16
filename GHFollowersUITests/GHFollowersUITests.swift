@@ -17,38 +17,37 @@ final class GHFollowersUITests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
+        app.terminate()
         app = nil
     }
     
     func testImageExists() {
-        let image = app.images["logo"]
+        let image = app.images["logoImage"]
         XCTAssertTrue(image.exists)
     }
     
     func testExample() throws {
-        let image = app.images["logo"]
+        let image = app.images["logoImage"]
+        XCTAssertTrue(image.exists)
         let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
+        XCTAssertTrue(textField.element.exists)
         let button = app.buttons.matching(.button, identifier: "Action Button")
-        let username = app.staticTexts["myaumura"]
+        XCTAssertTrue(button.element.exists)
         
-        guard textField.element.exists && button.element.exists else { return XCTFail()}
+        guard textField.element.exists && button.element.exists else { return XCTFail() }
         
         textField.element.tap()
         textField.element.typeText("myaumura")
         image.tap()
         button.element.tap()
-        
-        XCTAssertTrue(image.exists)
-        XCTAssertTrue(textField.element.exists)
-        XCTAssertTrue(button.element.exists)
+        let username = app.staticTexts["myaumura"]
         XCTAssertTrue(username.exists)
     }
     
     func testTabBarButtons() {
         let searchButton = app.buttons.matching(.button, identifier: "Search")
-        let favoritesButton = app.buttons.matching(.button, identifier: "Favorites")
-        
         XCTAssertTrue(searchButton.element.exists)
+        let favoritesButton = app.buttons.matching(.button, identifier: "Favorites")
         XCTAssertTrue(favoritesButton.element.exists)
     }
     
@@ -81,36 +80,31 @@ final class GHFollowersUITests: XCTestCase {
         let image = app.images["logoImage"]
         let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
         let button = app.buttons.matching(.button, identifier: "Action Button")
-        let followerCollectionView = app.collectionViews["Followers Collection View"]
-        let cell = followerCollectionView.cells.element(boundBy: 0)
        
-        guard textField.element.exists && button.element.exists else { return XCTFail()}
+        guard textField.element.exists && button.element.exists else { return XCTFail() }
         textField.element.tap()
         textField.element.typeText("antigluten")
         image.tap()
         button.element.tap()
-            
-        XCTAssertFalse(cell.exists)
+        let followerCollectionView = app.collectionViews["Followers Collection View"]
+        XCTAssertTrue(followerCollectionView.exists)
+        let cell = followerCollectionView.cells.element(boundBy: 0)
+        XCTAssertTrue(cell.exists)
     }
     
     func testGetFullCollectionView() {
-        
+        let collectionView = app.collectionViews["GHCollectionView"]
+        XCTAssertTrue(collectionView.exists)
     }
     
     func testEmptyTextfield() {
         let getFollowersButton = app.buttons.matching(.button, identifier: "Action Button")
-        let staticText = app.staticTexts["Empty username"]
-        let okButton = app.buttons["Ok"]
-        
-        getFollowersButton.element.tap()
-        okButton.tap()
-        
         XCTAssertTrue(getFollowersButton.element.exists)
+        getFollowersButton.element.tap()
+        let staticText = app.staticTexts["Empty username"]
         XCTAssertTrue(staticText.exists)
+        let okButton = app.buttons["Ok"]
         XCTAssertTrue(okButton.exists)
-    }
-    
-    func testUI() {
-        
+        okButton.tap()
     }
 }
