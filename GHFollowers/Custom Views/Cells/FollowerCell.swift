@@ -28,10 +28,12 @@ class FollowerCell: UICollectionViewCell {
     }
     
     private func configure() {
+        accessibilityIdentifier = "FOLLOWER_CELL"
+        
         contentView.addSubview(avatarImageView)
         contentView.addSubview(usernameLabel)
         
-        let padding:CGFloat = 8
+        let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),

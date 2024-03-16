@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "514AB1B6-6A0E-4402-B47D-A889805D56E3",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:GHFollowers.xcodeproj",
+        "identifier" : "97FD8E1F2B66F10E00C9D88D",
+        "name" : "GHFollowersUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

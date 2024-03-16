@@ -8,6 +8,7 @@
 import UIKit
 
 class GFBodyLabel: UILabel {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -24,6 +25,7 @@ class GFBodyLabel: UILabel {
     }
     
     private func configure() {
+        accessibilityIdentifier = "GF_BODY_LABEL"
         textColor = .secondaryLabel
         font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth = true

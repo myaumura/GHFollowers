@@ -21,6 +21,7 @@ final class FollowerListVC: UIViewController {
     
     var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        collectionView.accessibilityIdentifier = "FOLLOWER_COLLECTION_VIEW"
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemBackground
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
@@ -31,6 +32,7 @@ final class FollowerListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "FOLLOWER_LIST_VIEW"
         configureViewController()
         configureSearchController()
         configureCollectionView()
@@ -51,7 +53,6 @@ final class FollowerListVC: UIViewController {
     func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.delegate = self
-        collectionView.accessibilityIdentifier = "Followers Collection View"
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

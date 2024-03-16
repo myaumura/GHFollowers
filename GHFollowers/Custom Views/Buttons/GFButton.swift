@@ -25,6 +25,7 @@ class GFButton: UIButton {
     }
     
     private func configure() {
+        accessibilityIdentifier = "GF_BUTTON"
         layer.cornerRadius = 10
         setTitleColor(.white, for: .normal)
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)

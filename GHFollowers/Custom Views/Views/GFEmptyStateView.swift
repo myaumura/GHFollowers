@@ -28,6 +28,8 @@ class GFEmptyStateView: UIView {
     }
     
     func configure() {
+        accessibilityIdentifier = "GF_EMPTY_STATE_VIEW"
+        
         addSubview(messageLabel)
         addSubview(logoImageView)
         

@@ -9,10 +9,13 @@ import UIKit
 
 class UserInfoVC: UIViewController {
 
+    private let headerView = UIView()
+    
     var username: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "GF_USER_INFO_VC"
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
         NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
@@ -25,8 +28,23 @@ class UserInfoVC: UIViewController {
                 self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+        setupUI()
     }
 
+    private func setupUI() {
+        view.addSubview(headerView)
+        
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.backgroundColor = .systemMint
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 180),
+        ])
+    }
+    
     @objc func dismissVC() {
         dismiss(animated: true)
     }

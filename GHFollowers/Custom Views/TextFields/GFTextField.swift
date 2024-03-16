@@ -19,6 +19,8 @@ class GFTextField: UITextField {
     }
     
     private func configure() {
+        accessibilityIdentifier = "GF_TEXT_FIELD"
+        
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.cornerRadius = 10

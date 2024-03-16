@@ -11,6 +11,7 @@ final class FavoritesListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "FAVORITES_LIST_VIEW"
         view.backgroundColor = .systemBackground
     }
 }

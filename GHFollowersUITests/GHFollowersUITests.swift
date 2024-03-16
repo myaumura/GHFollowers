@@ -11,44 +11,38 @@ import XCTest
 final class GHFollowersUITests: XCTestCase {
     var app: XCUIApplication!
     
+    private let page = SearchPage()
+    private let username = "myaumura"
+    
+    
     override func setUpWithError() throws {
+        try super.setUpWithError()
         app = XCUIApplication()
         app.launch()
     }
     
     override func tearDownWithError() throws {
+        try super.tearDownWithError()
+        app.terminate()
         app = nil
     }
     
-    func testImageExists() {
-        let image = app.images["logo"]
-        XCTAssertTrue(image.exists)
+    func testExample() throws {
+        page.checkPage()
+        page.typeTextField(text: username)
+            .tapLogo()
+            .tapButton()
     }
     
-    func testExample() throws {
-        let image = app.images["logo"]
-        let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
-        let button = app.buttons.matching(.button, identifier: "Action Button")
-        let username = app.staticTexts["myaumura"]
-        
-        guard textField.element.exists && button.element.exists else { return XCTFail()}
-        
-        textField.element.tap()
-        textField.element.typeText("myaumura")
-        image.tap()
-        button.element.tap()
-        
-        XCTAssertTrue(image.exists)
-        XCTAssertTrue(textField.element.exists)
-        XCTAssertTrue(button.element.exists)
-        XCTAssertTrue(username.exists)
+    func testImageExists() {
+        page.checkPage()
+            .tapLogo()
     }
     
     func testTabBarButtons() {
         let searchButton = app.buttons.matching(.button, identifier: "Search")
-        let favoritesButton = app.buttons.matching(.button, identifier: "Favorites")
-        
         XCTAssertTrue(searchButton.element.exists)
+        let favoritesButton = app.buttons.matching(.button, identifier: "Favorites")
         XCTAssertTrue(favoritesButton.element.exists)
     }
     
@@ -62,55 +56,19 @@ final class GHFollowersUITests: XCTestCase {
     }
     
     func testFollowersCollectionView() {
-        let image = app.images["logoImage"]
-        let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
-        let button = app.buttons.matching(.button, identifier: "Action Button")
-        let followerCollectionView = app.collectionViews["Followers Collection View"]
-        let cell = followerCollectionView.cells.element(boundBy: 0)
-       
-        guard textField.element.exists && button.element.exists else { return XCTFail()}
-        textField.element.tap()
-        textField.element.typeText("myaumura")
-        image.tap()
-        button.element.tap()
-        
-        XCTAssertTrue(cell.exists)
+        page.getFollowers(text: username)
+            .checkPage()
+            .checkCollectionView()
+            .checkCell()
     }
     
-    func testEmptyFollowersCollectionView() {
-        let image = app.images["logoImage"]
-        let textField = app.textFields.matching(.textField, identifier: "Username Text Field")
-        let button = app.buttons.matching(.button, identifier: "Action Button")
-        let followerCollectionView = app.collectionViews["Followers Collection View"]
-        let cell = followerCollectionView.cells.element(boundBy: 0)
-       
-        guard textField.element.exists && button.element.exists else { return XCTFail()}
-        textField.element.tap()
-        textField.element.typeText("antigluten")
-        image.tap()
-        button.element.tap()
-            
-        XCTAssertFalse(cell.exists)
-    }
-    
-    func testGetFullCollectionView() {
-        
-    }
-    
-    func testEmptyTextfield() {
-        let getFollowersButton = app.buttons.matching(.button, identifier: "Action Button")
-        let staticText = app.staticTexts["Empty username"]
-        let okButton = app.buttons["Ok"]
-        
-        getFollowersButton.element.tap()
-        okButton.tap()
-        
-        XCTAssertTrue(getFollowersButton.element.exists)
-        XCTAssertTrue(staticText.exists)
-        XCTAssertTrue(okButton.exists)
-    }
-    
-    func testUI() {
-        
+    func testEmptyAlert() {
+        page.typeTextField(text: "")
+            .tapLogo()
+            .tapButton()
+            .checkAlertName(text: "Empty username")
+            .checkAlertBody(text: "Please enter the username. We need to know who to look for 😀.")
+            .tapAlertButton()
+            .checkPage()
     }
 }
